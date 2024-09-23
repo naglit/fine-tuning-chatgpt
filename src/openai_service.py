@@ -76,7 +76,7 @@ def generate_response(content, model_id="fine-tuned-model-id", max_tokens=100):
     """
     try:
         prompt = [
-            {"role": content}
+            {"role": "user", "content": content }
         ]
         # Create a completion request to OpenAI API
         response = openai.chat.completions.create(
@@ -86,7 +86,7 @@ def generate_response(content, model_id="fine-tuned-model-id", max_tokens=100):
         )
         
         # Return the generated text from the response
-        return response.choices[0].text.strip()
+        return response.choices[0].message.content.strip()
     
     except Exception as e:
         return f"An error occurred: {e}"
