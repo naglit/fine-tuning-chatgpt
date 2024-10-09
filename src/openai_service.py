@@ -28,11 +28,10 @@ def upload_dataset(filepath = "./fine_tuning.jsonl") -> str:
         file_id = getattr(response, 'id', None)
         
         if file_id:
-            print(f"Dataset uploaded successfully: {file_id}")
             return file_id
         else:
-            print("Error: Could not retrieve the file ID from the response.")
             return None
+    
     except Exception as e:
         print(f"Error uploading file: {e}")
         return None

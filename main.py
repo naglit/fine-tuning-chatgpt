@@ -20,7 +20,7 @@ def main():
     generate_parser = subparsers.add_parser("generate", help="Generate a response using a fine-tuned model")
     generate_parser.add_argument("prompt", type=str, help="Prompt or input text")
     generate_parser.add_argument("--model_id", type=str, default="fine-tuned-model-id", help="Fine-tuned model ID")
-    generate_parser.add_argument("--max_tokens", type=int, default=100, help="Max tokens for the response (default: 100)")
+    generate_parser.add_argument("--max_tokens", type=int, default=500, help="Max tokens for the response (default: 500)")
 
     # Check fine-tuning status command
     check_parser = subparsers.add_parser("check", help="Check the status of a fine-tuning job")
@@ -31,7 +31,10 @@ def main():
 
     if args.command == "upload":
         # Upload dataset
-        openai_service.upload_dataset()
+        file_id = openai_service.upload_dataset()
+        errMsg = "Error: Could not retrieve the file ID from the response."
+        msg = f"Dataset uploaded successfully: {file_id}" if file_id != None else errMsg
+        print(msg)
 
     elif args.command == "tune":
         # Start fine-tuning
@@ -41,7 +44,7 @@ def main():
     elif args.command == "generate":
         # Generate response
         response = openai_service.generate_response(args.prompt, args.model_id, args.max_tokens)
-        print(f"Response: {response}")
+        print(response)
 
     elif args.command == "check":
         # Check fine-tuning status
