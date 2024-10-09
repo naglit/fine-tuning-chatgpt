@@ -7,7 +7,7 @@ OPENAI_APIKEY = "openai_apikey"
 FT_MODEL = "ft_model"
 openai.api_key = repo.read_json(config.get_config_file_path())[OPENAI_APIKEY]
 
-def upload_dataset(filepath = "./fine_tuning.jsonl") -> str:
+def upload_dataset(filepath: str = "./fine_tuning.jsonl") -> str:
     """
     Upload the dataset to OpenAI for fine-tuning using the new API.
 

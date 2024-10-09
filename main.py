@@ -13,7 +13,7 @@ def main():
 
     # Fine-tune command
     finetune_parser = subparsers.add_parser("tune", help="Fine-tune a model with the dataset")
-    finetune_parser.add_argument("file_id", type=str, help="File ID of the uploaded dataset")
+    finetune_parser.add_argument("ftjob_id", type=str, help="File ID of the uploaded dataset")
     finetune_parser.add_argument("--model", type=str, default="gpt-4o-mini-2024-07-18", help="Base model to fine-tune (default: gpt-4o-mini-2024-07-18)")
 
     # Generate response command
@@ -37,12 +37,10 @@ def main():
         print(msg)
 
     elif args.command == "tune":
-        # Start fine-tuning
-        file_id = openai_service.start_finetune(args.file_id)
-        print(file_id)
+        ftjob_id = openai_service.start_finetune(args.ftjob_id)
+        print(ftjob_id)
 
     elif args.command == "generate":
-        # Generate response
         response = openai_service.generate_response(args.prompt, args.model_id, args.max_tokens)
         print(response)
 
