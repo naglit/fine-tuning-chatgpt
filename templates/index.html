@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI Process Manager</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">OpenAI Process Manager</h1>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="mt-4">
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" style="white-space: pre-wrap;">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <!-- Upload Dataset Form -->
+        <h2>Upload Dataset</h2>
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Dataset File (.jsonl):</label>
+                <input type="file" name="file" id="file" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+
+        <hr>
+
+        <!-- Fine-tune Model Form -->
+        <h2>Fine-tune Model</h2>
+        <form method="POST" action="/tune">
+            <div class="form-group">
+                <label for="file_id">File ID:</label>
+                <input type="text" name="file_id" id="file_id" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="model">Model (optional):</label>
+                <input type="text" name="model" id="model" class="form-control" value="gpt-4o-mini-2024-07-18">
+            </div>
+            <button type="submit" class="btn btn-primary">Fine-tune</button>
+        </form>
+
+        <hr>
+
+        <!-- Generate Response Form -->
+        <h2>Generate Response</h2>
+        <form method="POST" action="/generate">
+            <div class="form-group">
+                <label for="prompt">Prompt:</label>
+                <input type="text" name="prompt" id="prompt" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="model_id">Model ID (optional):</label>
+                <input type="text" name="model_id" id="model_id" class="form-control" value="fine-tuned-model-id">
+            </div>
+            <div class="form-group">
+                <label for="max_tokens">Max Tokens (optional):</label>
+                <input type="number" name="max_tokens" id="max_tokens" class="form-control" value="100">
+            </div>
+            <button type="submit" class="btn btn-primary">Generate</button>
+        </form>
+
+        <hr>
+
+        <!-- Check Fine-tuning Status Form -->
+        <h2>Check Fine-tuning Status</h2>
+        <form method="POST" action="/check">
+            <div class="form-group">
+                <label for="fine_tune_id">Fine-tune ID:</label>
+                <input type="text" name="fine_tune_id" id="fine_tune_id" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Check Status</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

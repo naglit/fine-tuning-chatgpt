@@ -1,5 +1,5 @@
 {
     "openai_apikey": "",
-    "ft_model": "gpt-4-0613",
+    "ft_model": "gpt-4o-mini-2024-07-18",
     "ft_training_file": "fine_tuning.jsonl"
 }
